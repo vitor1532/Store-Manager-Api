@@ -31,7 +31,7 @@ describe('Testa a camada controller de sales', function () {
     expect(res.json).to.have.been.calledWith(salesFromModel);
   });
 
-  it('Testa a função getSaleById', async function () {
+  it('Testa a função getSaleById em caso de sucesso', async function () {
     // arrange
     sinon.stub(connection, 'execute').resolves([singleSaleFromDb]);
     const id = 1;
@@ -47,6 +47,24 @@ describe('Testa a camada controller de sales', function () {
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(200);
     expect(res.json).to.have.been.calledWith(singleSaleFromModel);
+  });
+
+  it('Testa a função getSaleById em caso de falha', async function () {
+    // arrange
+    sinon.stub(connection, 'execute').resolves([]);
+    const id = 1;
+    const req = { params: id };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await salesController.getSaleById(req, res);
+    // assert
+    console.log(res.data);
+    expect(res).to.be.an('object');
+    expect(res.status).calledOnceWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
   });
 
   afterEach(function () {
