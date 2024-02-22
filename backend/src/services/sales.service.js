@@ -9,11 +9,13 @@ const findAll = async () => {
 };
 
 const findById = async (id) => {
-  const sale = await salesModel.findById(id);
+  const sales = await salesModel.findById(id);
 
-  if (!sale) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  if (!sales || sales.length === 0) {
+    return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  }
 
-  return { status: 'SUCCESSFUL', data: sale };
+  return { status: 'SUCCESSFUL', data: sales };
 };
 
 module.exports = {
