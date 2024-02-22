@@ -16,6 +16,17 @@ describe('Testa o model de Products', function () {
     expect(products).to.be.deep.equal(productsFromModel);
   });
 
+  it('Recupera apenas um dos products com sucesso', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([[productsFromDB[0]]]);
+    // act
+    const product = await productsModel.findById(id);
+    // assert
+    expect(product).to.be.an('object');
+    expect(product).to.be.deep.equal(productsFromModel[0]);
+  });
+
   afterEach(function () {
     sinon.restore();
   });
