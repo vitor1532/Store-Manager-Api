@@ -59,6 +59,22 @@ describe('Testa a camada controller de products', function () {
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   });
 
+  it.only('Testa a função insertProduct', async function () {
+    // arrange
+    sinon.stub(connection, 'execute').resolves([[]]);
+    const req = { body: { name: 'Laele da silva' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await productsController.insertProduct(req, res);
+    // assert
+
+    expect(res).to.be.an('object');
+    expect(res.status).calledWith(201);
+  });
+
   afterEach(function () {
     sinon.restore();
   });
