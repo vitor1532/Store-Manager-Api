@@ -10,6 +10,10 @@ const productsFromModel = [
   { id: 3, name: 'Espada de Tyr' },
 ];
 
+const newProductFromDB = [
+  { id: 4, name: 'Foice do tinhoso' },
+];
+
 const successfulResponseFindAllFromService = {
   status: 'SUCCESSFUL',
   data: productsFromModel,
@@ -29,11 +33,26 @@ const errorResponseFindByIdFromService = {
   data: { message: 'Product not found' },
 };
 
+const successfulResponseInsertFromService = {
+  status: 'CREATED',
+  data: newProductFromDB,
+};
+
+const errorResponseInsertFromService = {
+  status: 'CONFLICT',
+  data: {
+    message: 'Product already exists',
+  },
+};
+
 module.exports = {
   productsFromDB,
   productsFromModel,
+  newProductFromDB,
   successfulResponseFindAllFromService,
   errorResponseFindAllFromService,
   successfulResponseFindByIdFromService,
   errorResponseFindByIdFromService,
+  successfulResponseInsertFromService,
+  errorResponseInsertFromService,
 };

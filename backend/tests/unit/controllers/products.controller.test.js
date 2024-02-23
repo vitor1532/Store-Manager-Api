@@ -59,7 +59,7 @@ describe('Testa a camada controller de products', function () {
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   });
 
-  it.only('Testa a função insertProduct', async function () {
+  it('Testa a função insertProduct', async function () {
     // arrange
     sinon.stub(connection, 'execute').resolves([[]]);
     const req = { body: { name: 'Laele da silva' } };
