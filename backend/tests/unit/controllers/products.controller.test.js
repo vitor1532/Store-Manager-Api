@@ -20,10 +20,43 @@ describe('Testa a camada controller de products', function () {
     // act
     await productsController.getAllProducts(req, res);
     // assert
-    console.log(res.data);
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(200);
     expect(res.json).to.have.been.calledWith(productsFromModel);
+  });
+
+  it('Testa a função getProductById em caso de sucesso', async function () {
+    // arrange
+    sinon.stub(connection, 'execute').resolves([[productsFromDB[0]]]);
+    const id = 1;
+    const req = { params: id };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await productsController.getAllProducts(req, res);
+    // assert
+    expect(res).to.be.an('object');
+    expect(res.status).calledOnceWith(200);
+    expect(res.json).to.have.been.calledWith([productsFromModel[0]]);
+  });
+
+  it('Testa a função getProductById em caso de falha', async function () {
+    // arrange
+    sinon.stub(connection, 'execute').resolves([]);
+    const id = 9999;
+    const req = { params: id };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await productsController.getAllProducts(req, res);
+    // assert
+    expect(res).to.be.an('object');
+    expect(res.status).calledOnceWith(404);
+    // expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   });
 
   afterEach(function () {

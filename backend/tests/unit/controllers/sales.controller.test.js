@@ -25,7 +25,6 @@ describe('Testa a camada controller de sales', function () {
     // act
     await salesController.getAllSales(req, res);
     // assert
-    console.log(res.data);
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(200);
     expect(res.json).to.have.been.calledWith(salesFromModel);
@@ -43,7 +42,6 @@ describe('Testa a camada controller de sales', function () {
     // act
     await salesController.getSaleById(req, res);
     // assert
-    console.log(res.data);
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(200);
     expect(res.json).to.have.been.calledWith(singleSaleFromModel);
@@ -61,7 +59,6 @@ describe('Testa a camada controller de sales', function () {
     // act
     await salesController.getSaleById(req, res);
     // assert
-    console.log(res.data);
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
