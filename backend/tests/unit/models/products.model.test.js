@@ -38,8 +38,18 @@ describe('Testa o model de Products', function () {
     // act
     const insertId = await productsModel.insert(newProductFromDB[0].name);
     // assert
-    expect();
     expect(insertId).to.be.equal(newProductFromDB[0].id);
+  });
+
+  it('Testa a função remove do banco de dados', async function () {
+    // arrange
+    const id = 3;
+    sinon.stub(connection, 'execute').resolves({ affectedRows: 1, succcess: true });
+    // act
+    const result = await productsModel.remove(id);
+    // assert
+
+    expect(result.affectedRows).to.be.equal(1);
   });
 
   afterEach(function () {
