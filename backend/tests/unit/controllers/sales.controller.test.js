@@ -98,7 +98,6 @@ describe('Testa a camada controller de sales', function () {
     // act
     await salesController.insertSale(req, res);
     // assert
-    console.log(res.status);
     expect(res).to.be.an('object');
     expect(res.status).calledOnceWith(400);
     expect(res.json).to.have.been.calledWith({ message: '"[0]" must be of type object' });
