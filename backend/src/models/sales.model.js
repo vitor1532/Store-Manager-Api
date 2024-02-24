@@ -24,6 +24,20 @@ const findById = async (id) => {
   return camelize(sales);
 };
 
+const findFormattedSalesById = async (id) => {
+  const sales = await findById(id);
+
+  const formattedSales = sales.map(({ productId, quantity }) => ({
+    productId,
+    quantity,
+  }));
+
+  return {
+    id,
+    itemsSold: formattedSales,
+  };
+};
+
 const insertSalesProducts = async (sales, insertId) => {
   try {
     const promises = sales.map((sale) => {
@@ -56,5 +70,6 @@ const insert = async (sales) => {
 module.exports = {
   findAll,
   findById,
+  findFormattedSalesById,
   insert,
 };

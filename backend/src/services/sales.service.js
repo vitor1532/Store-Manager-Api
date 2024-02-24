@@ -21,9 +21,7 @@ const findById = async (id) => {
 const insert = async (sales) => {
   try {
     const insertId = await salesModel.insert(sales);
-    const newSale = await salesModel.findById(insertId);
-    console.log(insertId);
-    console.log(newSale);
+    const newSale = await salesModel.findFormattedSalesById(insertId);
 
     return { status: 'CREATED', data: newSale };
   } catch (err) {
