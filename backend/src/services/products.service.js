@@ -55,9 +55,21 @@ const update = async (body, id) => {
   return { status: 'SUCCESSFUL', data: updatedProduct };
 };
 
+const remove = async (id) => {
+  const productExists = await findById(id);
+  if (productExists.status === 'NOT_FOUND') {
+    return productExists;
+  } 
+
+  await productsModel.remove(id);
+
+  return { status: 'NO_CONTENT', data: {} };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
+  remove,
 };
