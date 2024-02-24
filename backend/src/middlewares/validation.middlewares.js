@@ -1,4 +1,4 @@
-const { validateNewProduct } = require('../utils/validateInputs');
+const { validateNewProduct } = require('../services/validations/validateInputs');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 const validateNameMiddleware = async (req, res, next) => {

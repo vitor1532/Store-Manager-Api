@@ -1,4 +1,5 @@
 const { productsModel } = require('../models');
+const { validateNewProduct } = require('./validations/validateInputs');
 
 const findAll = async () => {
   const products = await productsModel.findAll();
@@ -16,7 +17,14 @@ const findById = async (id) => {
   return { status: 'SUCCESSFUL', data: product };
 };
 
-const insert = async (name) => {
+const insert = async (body) => {
+  const error = validateNewProduct(body);
+  if (error) {
+    const { status, message } = error;
+    
+    return { status, data: { message } }; 
+  }
+  const { name } = body;
   const productExists = await productsModel.findByName(name); 
   if (productExists) return { status: 'CONFLICT', data: { message: 'Product already exists' } };
 

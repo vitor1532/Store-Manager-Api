@@ -65,7 +65,7 @@ describe('Testa o service de Products', function () {
     sinon.stub(productsModel, 'findById').resolves(newProductFromDB);
 
     // act
-    const products = await productsService.insert(name);
+    const products = await productsService.insert({ name });
     // assert
     expect(products).to.be.an('object');
     expect(products).to.be.deep.equal(successfulResponseInsertFromService);
@@ -79,7 +79,7 @@ describe('Testa o service de Products', function () {
     sinon.stub(productsModel, 'findById').resolves([]);
 
     // act
-    const products = await productsService.insert(name);
+    const products = await productsService.insert({ name });
     // assert
     expect(products).to.be.an('object');
     expect(products).to.be.deep.equal(errorResponseInsertFromService);
