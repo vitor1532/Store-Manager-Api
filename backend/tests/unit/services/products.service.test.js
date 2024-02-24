@@ -85,6 +85,31 @@ describe('Testa o service de Products', function () {
     expect(products).to.be.deep.equal(errorResponseInsertFromService);
   });
 
+  it('Testa a função remove da camada model com um id inválido', async function () {
+    // arrange
+    const id = 9999;
+    sinon.stub(connection, 'execute').resolves([[]]);
+    sinon.stub(productsService, 'findById').resolves();
+    // act
+    const removedProduct = await productsService.remove(id);
+    // assert
+    expect(removedProduct).to.be.an('object');
+    expect(removedProduct.status).to.be.equal('NOT_FOUND');
+    expect(removedProduct.data).to.been.deep.equal({ message: 'Product not found' });
+  });
+
+  it('Testa a função remove da camada model com um id válido', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([[productsFromDB[0]]]);
+    sinon.stub(productsService, 'findById').resolves();
+    // act
+    const removedProduct = await productsService.remove(id);
+    // assert
+    expect(removedProduct).to.be.an('object');
+    expect(removedProduct.status).to.be.equal('NO_CONTENT');
+  });
+
   afterEach(function () {
     sinon.restore();
   });
