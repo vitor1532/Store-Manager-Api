@@ -1,4 +1,4 @@
-const { addProductSchema } = require('./schemas');
+const { addProductSchema, addSaleSchema } = require('./schemas');
 
 const validateNewProduct = (body) => {
   const { error } = addProductSchema.validate(body);
@@ -10,6 +10,18 @@ const validateNewProduct = (body) => {
   }
 };
 
+const validateNewSale = (sales) => {
+  const { error } = addSaleSchema.validate(sales);
+
+  if (error) {
+    const status = error.details.map((err) => (
+      err.type === 'number.min' ? 'INVALID_VALUE' : 'BAD_REQUEST'));
+    const newMessage = error.message.replace(/\[\d+\]\./g, '');
+    return { status, message: newMessage };
+  }
+};
+
 module.exports = {
   validateNewProduct,
+  validateNewSale,
 };
