@@ -85,6 +85,13 @@ const newSales = [
   },
 ];
 
+const newInvalidSales = [
+  {
+    productId: 999,
+    quantity: 1,
+  },
+];
+
 const newSalesFromDb = {
   id: undefined,
   itemsSold: [
@@ -120,6 +127,7 @@ module.exports = {
   singleSaleFromDb,
   singleSaleFromModel,
   newSales,
+  newInvalidSales,
   newSalesFromDb,
   successfulResponseFindAllFromService,
   errorResponseFindAllFromService,

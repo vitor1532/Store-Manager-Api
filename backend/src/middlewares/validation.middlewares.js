@@ -30,5 +30,6 @@ const validateProductsExistsMiddleware = async (req, res, next) => {
 };
 
 module.exports = {
+  validateInputNewSale,
   validateProductsExistsMiddleware,
 };
