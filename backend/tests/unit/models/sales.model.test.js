@@ -2,7 +2,11 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { salesModel } = require('../../../src/models');
-const { salesFromDB, salesFromModel } = require('../mocks/sales.mock');
+const { 
+  salesFromDB,
+  salesFromModel,
+  newSales,
+} = require('../mocks/sales.mock');
 
 describe('Testa o model de Sales', function () {
   it('Recupera todos as sales com sucesso', async function () {
@@ -25,6 +29,16 @@ describe('Testa o model de Sales', function () {
     // assert
     expect(product).to.be.an('object');
     expect(product).to.be.deep.equal(salesFromModel[0]);
+  });
+
+  it('testa insert sales', async function () {
+    // arrange
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
+    // act
+    const result = await salesModel.insert(newSales);
+
+    // assert
+    expect(result).to.equal(1); // Expecting insertId
   });
 
   afterEach(function () {

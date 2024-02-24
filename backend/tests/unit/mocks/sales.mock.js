@@ -74,6 +74,27 @@ const singleSaleFromModel = [
   },
 ];
 
+const newSales = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
+const newSalesFromDb = {
+  id: undefined,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 2,
+    },
+  ],
+};
+
 const successfulResponseFindAllFromService = {
   status: 'SUCCESSFUL',
   data: salesFromModel,
@@ -98,6 +119,8 @@ module.exports = {
   salesFromModel,
   singleSaleFromDb,
   singleSaleFromModel,
+  newSales,
+  newSalesFromDb,
   successfulResponseFindAllFromService,
   errorResponseFindAllFromService,
   successfulResponseFindByIdFromService,
