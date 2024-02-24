@@ -65,17 +65,17 @@ describe('Testa o service de sales', function () {
     // Assert
     expect(result).to.deep.equal({ status: 'CREATED', data: newSalesFromDb });
   });
-  afterEach(function () {
-    sinon.restore();
-  });
-
+  
   it('testa a função insert em caso de erro', async function () {
     // Arrange
     const sales = [{ productId: 1, quantity: -1 }];
     // Act
     const result = validateNewSale(sales);
-
+    
     // Assert
     expect(result).to.deep.equal({ status: ['INVALID_VALUE'], message: '"quantity" must be greater than or equal to 1' });
+  });
+  afterEach(function () {
+    sinon.restore();
   });
 });
