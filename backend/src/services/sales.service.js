@@ -20,20 +20,16 @@ const findById = async (id) => {
 };
 
 const insert = async (sales) => {
-  try {
-    const error = validateNewSale(sales);
-    if (error) {
-      const { status, message } = error;
+  const error = validateNewSale(sales);
+  if (error) {
+    const { status, message } = error;
       
-      return { status, data: { message } }; 
-    }
-    const insertId = await salesModel.insert(sales);
-    const newSale = await salesModel.findFormattedSalesById(insertId);
-
-    return { status: 'CREATED', data: newSale };
-  } catch (err) {
-    console.log(err);
+    return { status, data: { message } }; 
   }
+  const insertId = await salesModel.insert(sales);
+  const newSale = await salesModel.findFormattedSalesById(insertId);
+
+  return { status: 'CREATED', data: newSale };
 };
 
 const remove = async (id) => {
