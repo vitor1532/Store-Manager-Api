@@ -39,32 +39,24 @@ const findFormattedSalesById = async (id) => {
 };
 
 const insertSalesProducts = async (sales, insertId) => {
-  try {
-    const promises = sales.map((sale) => {
-      const columns = getFormattedColumnNames(sale);
-      const placeholders = getFormattedPlaceholders(sale);
-      const query = `INSERT INTO sales_products (sale_id , ${columns}) VALUE (?, ${placeholders})`;
-      return connection.execute(query, [insertId, ...Object.values(sale)]);
-    }); 
-    await Promise.all(promises);
-  } catch (err) {
-    console.log(err);
-  }
+  const promises = sales.map((sale) => {
+    const columns = getFormattedColumnNames(sale);
+    const placeholders = getFormattedPlaceholders(sale);
+    const query = `INSERT INTO sales_products (sale_id , ${columns}) VALUE (?, ${placeholders})`;
+    return connection.execute(query, [insertId, ...Object.values(sale)]);
+  }); 
+  await Promise.all(promises);
 };
 
 const insert = async (sales) => {
-  try {
-    const [{ insertId }] = await connection.execute(
-      `INSERT INTO sales (date)
+  const [{ insertId }] = await connection.execute(
+    `INSERT INTO sales (date)
         VALUE (NOW())`,
-    );
+  );
     
-    await insertSalesProducts(sales, insertId);
+  await insertSalesProducts(sales, insertId);
   
-    return insertId;
-  } catch (err) {
-    console.log(err);
-  }
+  return insertId;
 };
 
 const remove = async (id) => {
