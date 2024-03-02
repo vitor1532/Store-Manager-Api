@@ -137,6 +137,25 @@ describe('Testa a camada controller de sales', function () {
     expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
   });
 
+  it('Testa a função updateProductQuantity em caso de falha', async function () {
+    // arrange
+    const saleId = 999;
+    const productId = 2;
+    const quantity = 3;
+    sinon.stub(connection, 'execute').resolves([]);
+    const req = { params: saleId, productId, body: { quantity } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await salesController.updateProductQuantity(req, res);
+    // assert
+    expect(res).to.be.an('object');
+    expect(res.status).calledOnceWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
