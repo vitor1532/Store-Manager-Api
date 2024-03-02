@@ -1,6 +1,6 @@
 # Store Manager API
 
-This project is a collaboration between Trybe School and myself. The Dockerfile, docker-compose, and the database setup were provided by Trybe. The rest of the application, including the MSC (Model-View-Controller) architecture, middlewares, and other components, were developed by me.
+This project is a collaboration between Trybe School and myself. The Dockerfile, docker-compose, and the database setup were provided by Trybe. The rest of the application, including the MSC (Model-View-Controller) architecture, middlewares, unit tests and other components were developed by me.
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ You need to have Docker and Node.js installed on your machine.
 2. Install the dependencies by running `npm install`
 3. Start the application by running `docker-compose up -d`
 
-## Testing
+## Using the routes
 
 You can test the routes of the application using a HTTP client such as Thunder Client or Postman.
 
@@ -37,6 +37,16 @@ You can test the routes of the application using a HTTP client such as Thunder C
 - **DELETE /sales/:id**: Deletes a sale by its ID.
 - **PUT /sales/:saleId/products/:productId/quantity**: Updates the quantity of a product in a sale.
 
+
+## Testing with unit tests
+
+To test the application, you need to enter the Docker container CLI. Follow these steps:
+
+1. Open your terminal.
+2. Enter the Docker container by running `docker exect -it store_manager sh`.
+3. Once inside the Docker container, execute the tests by running `npm run test:mocha`.
+
+This command will execute the unit tests and provide you with feedback on the functionality and correctness of the application's components.
 
 ## Built With
 
