@@ -41,6 +41,28 @@ describe('Testa o model de Sales', function () {
     expect(result).to.equal(1); // Expecting insertId
   });
 
+  it('Testa a função remove em caso de sucesso', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    // act
+    const products = await salesModel.remove(id);
+    // assert
+    expect(products).to.be.an('object');
+    expect(products).to.be.deep.equal({ affectedRows: 1 });
+  });
+
+  it('Testa a função remove em caso de falha', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 0 }]);
+    // act
+    const products = await salesModel.remove(id);
+    // assert
+    expect(products).to.be.an('object');
+    expect(products).to.be.deep.equal({ affectedRows: 0 });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
