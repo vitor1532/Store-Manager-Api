@@ -15,6 +15,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_HOSTNAME: db
       MYSQL_PORT: 3306
+      MYSQL_DATABASE: StoreManager
       PORT: 3001
     depends_on:
       db:
