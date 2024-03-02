@@ -67,9 +67,19 @@ const insert = async (sales) => {
   }
 };
 
+const remove = async (id) => {
+  const [sale] = await connection.execute(
+    'DELETE FROM sales WHERE id = ?',
+    [id],
+  );
+
+  return sale;
+};
+
 module.exports = {
   findAll,
   findById,
   findFormattedSalesById,
   insert,
+  remove,
 };
