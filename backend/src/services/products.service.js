@@ -50,7 +50,6 @@ const update = async (body, id) => {
   await productsModel.update(body.name, id);
 
   const updatedProduct = await productsModel.findById(id);
-  console.log(updatedProduct);
 
   return { status: 'SUCCESSFUL', data: updatedProduct };
 };
