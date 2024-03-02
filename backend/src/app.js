@@ -16,4 +16,6 @@ app.get('/', (_request, response) => {
 app.use('/products', productsRouter);
 app.use('/sales', salesRouter);
 
+app.use((error, _req, res, _next) => res.status(500).json({ error: error.message }));
+
 module.exports = app;
