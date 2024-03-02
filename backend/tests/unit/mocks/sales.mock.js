@@ -121,6 +121,11 @@ const errorResponseFindByIdFromService = {
   data: { message: 'Sale not found' },
 };
 
+const succsessfulResponseDeleteFromService = { 
+  status: 'NO_CONTENT',
+  data: { message: 'Sale removed' }, 
+};
+
 module.exports = {
   salesFromDB,
   salesFromModel,
@@ -133,4 +138,5 @@ module.exports = {
   errorResponseFindAllFromService,
   successfulResponseFindByIdFromService,
   errorResponseFindByIdFromService,
+  succsessfulResponseDeleteFromService,
 };

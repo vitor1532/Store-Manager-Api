@@ -10,6 +10,7 @@ const {
   errorResponseFindAllFromService,
   successfulResponseFindByIdFromService,
   errorResponseFindByIdFromService,
+  succsessfulResponseDeleteFromService,
 } = require('../mocks/sales.mock');
 
 describe('Testa o service de sales', function () {
@@ -75,6 +76,29 @@ describe('Testa o service de sales', function () {
     // Assert
     expect(result).to.deep.equal({ status: ['INVALID_VALUE'], message: '"quantity" must be greater than or equal to 1' });
   });
+
+  it('Testa se a função remove em caso de sucesso', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    // act
+    const sales = await salesService.remove(id);
+    // assert
+    expect(sales).to.be.an('object');
+    expect(sales).to.be.deep.equal(succsessfulResponseDeleteFromService);
+  });
+
+  it('Testa se a função remove em caso de falha', async function () {
+    // arrange
+    const id = 999;
+    sinon.stub(connection, 'execute').resolves([]);
+    // act
+    const sales = await salesService.remove(id);
+    // assert
+    expect(sales).to.be.an('object');
+    expect(sales).to.be.deep.equal(errorResponseFindByIdFromService);
+  });
+
   afterEach(function () {
     sinon.restore();
   });
