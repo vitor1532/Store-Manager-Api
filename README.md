@@ -1,4 +1,4 @@
-# Project Title
+# Store Manager API
 
 This project is a collaboration between Trybe School and myself. The Dockerfile, docker-compose, and the database setup were provided by Trybe. The rest of the application, including the MSC (Model-View-Controller) architecture, middlewares, and other components, were developed by me.
 
