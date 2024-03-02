@@ -76,10 +76,25 @@ const remove = async (id) => {
   return sale;
 };
 
+const updateProductQuantity = async (saleId, productId, body) => {
+  const { quantity } = body;
+  await connection.execute(
+    `UPDATE sales_products
+      SET quantity = ?
+      WHERE sale_id = ? AND product_id = ?`,
+    [quantity, saleId, productId],
+  );
+
+  const sale = await findById(saleId);
+
+  return sale;
+};
+
 module.exports = {
   findAll,
   findById,
   findFormattedSalesById,
   insert,
   remove,
+  updateProductQuantity,
 };

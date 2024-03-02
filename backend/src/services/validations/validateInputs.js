@@ -1,4 +1,8 @@
-const { addProductSchema, addSaleSchema } = require('./schemas');
+const { 
+  addProductSchema,
+  addSaleSchema,
+  updateProductQuantitySchema,
+} = require('./schemas');
 
 const validateNewProduct = (body) => {
   const { error } = addProductSchema.validate(body);
@@ -21,7 +25,18 @@ const validateNewSale = (sales) => {
   }
 };
 
+const validateUpdateProductQuantity = (body) => {
+  const { error } = updateProductQuantitySchema.validate(body);
+
+  if (error) {
+    const status = error.details.map((err) => (
+      err.type === 'number.min' ? 'INVALID_VALUE' : 'BAD_REQUEST'));
+    return { status: status[0], message: error.message };
+  }
+};
+
 module.exports = {
   validateNewProduct,
   validateNewSale,
+  validateUpdateProductQuantity,
 };
