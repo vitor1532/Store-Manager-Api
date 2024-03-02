@@ -66,10 +66,24 @@ const remove = async (id) => {
   return { status: 'NO_CONTENT', data: {} };
 };
 
+const findByName = async (name) => {
+  if (!name || name.length === 0) {
+    const allProducts = await productsModel.findAll();
+
+    return { status: 'SUCCESSFUL', data: allProducts };
+  }
+  const products = await productsModel.findByName(name);
+
+  if (!products) return { status: 'SUCCESSFUL', data: [] };
+
+  return { status: 'SUCCESSFUL', data: [products] };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
   remove,
+  findByName,
 };

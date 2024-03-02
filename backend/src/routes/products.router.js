@@ -5,6 +5,8 @@ router.get('/', productsController.getAllProducts);
 
 router.post('/', productsController.insertProduct);
 
+router.get('/search', productsController.getProductByName);
+
 router.get('/:id', productsController.getProductById);
 
 router.put('/:id', productsController.updateProduct);

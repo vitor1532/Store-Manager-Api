@@ -15,8 +15,8 @@ const findById = async (id) => {
 
 const findByName = async (name) => {
   const [[product]] = await connection.execute(
-    'SELECT * FROM products WHERE name = ?', 
-    [name],
+    'SELECT * FROM products WHERE name LIKE ?', 
+    [`%${name}%`],
   );
   return product;
 };
