@@ -103,6 +103,23 @@ describe('Testa a camada controller de sales', function () {
     expect(res.json).to.have.been.calledWith({ message: '"[0]" must be of type object' });
   });
 
+  it.only('Testa a função deleteSale em caso de falha', async function () {
+    // arrange
+    const id = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const req = { params: id };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    // act
+    await salesController.deleteSale(req, res);
+    // assert
+    expect(res).to.be.an('object');
+    expect(res.status).calledOnceWith(204);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale removed' });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
